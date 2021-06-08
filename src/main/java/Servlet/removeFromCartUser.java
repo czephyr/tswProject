@@ -18,13 +18,18 @@ import java.util.ArrayList;
 public class removeFromCartUser extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		AccountSession accountSession = (AccountSession) session.getAttribute("accountSession");
+		if(accountSession == null){
+			response.sendError(HttpServletResponse.SC_FORBIDDEN,"You're not logged");
+			return;
+		}
+
 		CartDao cartDao = new CartDao();
 		int cartItemsN = 0;
-		AccountSession accountSession = (AccountSession) request.getSession(false).getAttribute("accountSession");
-		HttpSession session = request.getSession(false);
-
 		Cart cart = (Cart) session.getAttribute("cart");
 		ArrayList<Product> cartProducts = cart.getCartProducts();
+
 		cartProducts.removeIf(product -> product.getProductID() == Integer.parseInt(request.getParameter("productid")));
 		for (Product product: cartProducts) {
 			cartItemsN = cartItemsN + product.getProductQuantity();

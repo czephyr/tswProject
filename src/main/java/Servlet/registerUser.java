@@ -25,11 +25,14 @@ public class registerUser extends HttpServlet {
 		UserDao userDao = new UserDao();
 		CartDao cartDao = new CartDao();
 		try {
+			if(userDao.emailIsInDB(request.getParameter("email"))){
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST,"Email is already in the DB");
+				return;
+			}
 			int userid = userDao.createUser(request.getParameter("email"),request.getParameter("name"),request.getParameter("surname"), request.getParameter("password"));
 			int cartid = cartDao.createCartByID(userid);
-
-			Cart cart = new Cart(cartid);
-			AccountSession accountSession = new AccountSession(request.getParameter("email"),request.getParameter("name"),request.getParameter("surname"), false);
+			Cart cart = new Cart(userid,cartid);
+			AccountSession accountSession = new AccountSession(userid,request.getParameter("email"),request.getParameter("name"),request.getParameter("surname"), false);
 
 			HttpSession session = request.getSession(true);
 
@@ -39,6 +42,5 @@ public class registerUser extends HttpServlet {
 		} catch (SQLException | NoSuchAlgorithmException throwables) {
 			throwables.printStackTrace();
 		}
-		response.sendRedirect(request.getContextPath()+"/index");
 	}
 }

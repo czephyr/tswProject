@@ -41,8 +41,8 @@ public class CartDao extends DAO{
 		}
 	}
 
-	public Cart returnQuantityIDInCart(int cartid){
-		Cart cart = new Cart(cartid);
+	public Cart returnQuantityIDInCart(int userid, int cartid){
+		Cart cart = new Cart(userid, cartid);
 		startConnection();
 		try(Connection conn = getConnection()) {
 			try (PreparedStatement ps = conn.prepareStatement("SELECT product_id, quantity from product JOIN product_cart pc on product.productID = pc.product_id WHERE cart_id=?")){

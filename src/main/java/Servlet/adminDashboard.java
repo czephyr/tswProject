@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 
 @WebServlet(name = "adminDashboard", value = "/adminDashboard")
-public class adminDashboard extends utilsServlet {
+public class adminDashboard extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();

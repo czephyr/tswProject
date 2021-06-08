@@ -15,11 +15,6 @@
 
 <body>
 
-${accountSession.userEmail}
-${accountSession.userIsAdmin}
-${cartItemsN}
-${cart.cartProducts}
-cart id = ${cart.cartID}
 <header class="p-3 bg-dark text-white">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -32,7 +27,7 @@ cart id = ${cart.cartID}
                 <li><a href="${pageContext.request.contextPath}/catalogueServlet" class="nav-link px-2 text-white">Catalogue</a></li>
                 <c:choose>
                     <c:when test = "${accountSession.userIsAdmin == false}">
-                        <li><a href="${pageContext.request.contextPath}/ordersPageUser" class="nav-link px-2 text-secondary">Orders</a></li>
+                        <li><a href="${pageContext.request.contextPath}/ordersPageUser" class="nav-link px-2 text-white">Orders</a></li>
                     </c:when>
                 </c:choose>
             </ul>
@@ -70,47 +65,16 @@ cart id = ${cart.cartID}
     </div>
 </header>
 
-<div class="album py-5 bg-light">
-
-    <div class="container">
-        <h1 class="fw-light">Here are your past orders</h1>
-
-        <c:choose>
-        <c:when test = "${orders.size() == 0}">
-            Your have no past orders.
-        </c:when>
-        <c:otherwise><c:forEach items = "${orders}" var ="order">
-            <div class="container">
-                <h3 class="fw-light">Order in date ${order.orderDate}</h3>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Price</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items = "${order.orderProducts}" var ="product">
-                        <tr>
-                            <th scope="row"></th>
-                            <td>${product.productName}</td>
-                            <td>${product.productQuantity}</td>
-                            <td>${product.productPrice}</td>
-                        </tr>
-                    </c:forEach>
-                    <th scope="row"></th>
-                    <td></td>
-                    <td></td>
-                    <td><strong>Total:</strong> ${order.orderTotal}</td>
-                    </tbody>
-                </table>
+<main>
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">403 error</h1>
+                <p class="lead text-muted">You're not authorized to access this resource. How did you do it?</p>
             </div>
-        </c:forEach></c:otherwise>
-        </c:choose>
-    </div>
-</div>
+        </div>
+    </section>
+</main>
 
 <footer class="text-muted py-5">
     <div class="container">
@@ -121,5 +85,7 @@ cart id = ${cart.cartID}
     </div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<script type='text/javascript' src='js/login.js'></script>
 </body>
 </html>
+

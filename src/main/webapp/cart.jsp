@@ -17,7 +17,7 @@
 
 <body>
 ${accountSession.userEmail}
-${accountSession.userIsAdmin}
+${accountSession.userID}
 ${cartItemsN}
 <header class="p-3 bg-dark text-white">
     <div class="container">
@@ -52,11 +52,12 @@ ${cartItemsN}
                 </c:when>
 
                 <c:otherwise>
-                    <form action="${pageContext.request.contextPath}/loginUser" method="post" class="row row-cols-lg-auto">
-                        <div class="col-auto"><input name="email" type="email" class="form-control form-control-dark" placeholder="Email" aria-label="Search"></div>
-                        <div class="col-auto"><input name="password" type="password" class="form-control form-control-dark" placeholder="Password" aria-label="Search"></div>
-                        <div class="col-auto"><button type="submit" class="btn btn-outline-light me-2">Login</button></div>
-                    </form>
+                    <div class="row row-cols-lg-auto">
+                        <div class="col-auto text-warning" id="logError"></div>
+                        <div class="col-auto"><input id="email" name="email" type="email" class="form-control form-control-dark" placeholder="Email" aria-label="Search"></div>
+                        <div class="col-auto"><input id="password" name="password" type="password" class="form-control form-control-dark" placeholder="Password" aria-label="Search"></div>
+                        <div class="col-auto"><button class="btn btn-outline-light me-2" onclick="login()">Login</button></div>
+                    </div>
 
                     <div class="text-end">
                         or

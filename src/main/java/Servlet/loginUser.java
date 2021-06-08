@@ -27,9 +27,14 @@ public class loginUser extends HttpServlet {
 		int cartItemsN = 0;
 		try {
 			accountSession = userDao.findUserForLogin(request.getParameter("email"),request.getParameter("password"));
+			if(accountSession == null){
+				response.sendError(HttpServletResponse.SC_NOT_FOUND,"Wrong email or password");
+				return;
+			}
+
 			int cartid = cartDao.checkCartExistance(accountSession.getUserID());
 			if(cartid > 0){
-				cart = cartDao.returnQuantityIDInCart(cartid);
+				cart = cartDao.returnQuantityIDInCart(accountSession.getUserID(),cartid);
 				for (Product product: cart.getCartProducts()) {
 					cartItemsN = cartItemsN +product.getProductQuantity();
 				}
@@ -44,7 +49,6 @@ public class loginUser extends HttpServlet {
 			session.setAttribute("accountSession", accountSession);
 			session.setAttribute("cart", cart);
 			session.setAttribute("cartItemsN", cartItemsN);
-			response.sendRedirect(getServletContext().getContextPath()+"/index");
 
 		} catch (SQLException | NoSuchAlgorithmException throwables) {
 			throwables.printStackTrace();

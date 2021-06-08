@@ -15,6 +15,14 @@ public class AccountSession {
 		this.userIsAdmin = userIsAdmin;
 	}
 
+	public AccountSession(int userID, String userEmail, String userName, String userSurname, boolean userIsAdmin) {
+		this.userID = userID;
+		this.userEmail = userEmail;
+		this.userName = userName;
+		this.userSurname = userSurname;
+		this.userIsAdmin = userIsAdmin;
+	}
+
 	public AccountSession() {
 	}
 

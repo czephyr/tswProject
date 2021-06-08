@@ -12,9 +12,15 @@ import java.io.IOException;
 public class ordersPageUser extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		AccountSession accountSession = (AccountSession) session.getAttribute("accountSession");
+		if(accountSession == null){
+			response.sendError(HttpServletResponse.SC_FORBIDDEN,"You're not logged");
+			return;
+		}
+
 		OrderDao orderDao = new OrderDao();
-		AccountSession account = (AccountSession) request.getSession(false).getAttribute("accountSession");
-		request.setAttribute("orders",orderDao.returnAllOrders(account.getUserID()));
+		request.setAttribute("orders",orderDao.returnAllOrders(accountSession.getUserID()));
 		request.getRequestDispatcher("orders.jsp").forward(request,response);
 	}
 }

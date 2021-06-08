@@ -9,8 +9,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
-    <link href="css/headers.css" rel="stylesheet">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Hello, world!</title>
 </head>
 
@@ -48,11 +47,12 @@
                 </c:when>
 
                 <c:otherwise>
-                    <form action="${pageContext.request.contextPath}/loginUser" method="post" class="row row-cols-lg-auto">
-                        <div class="col-auto"><input name="email" type="email" class="form-control form-control-dark" placeholder="Email" aria-label="Search"></div>
-                        <div class="col-auto"><input name="password" type="password" class="form-control form-control-dark" placeholder="Password" aria-label="Search"></div>
-                        <div class="col-auto"><button type="submit" class="btn btn-outline-light me-2">Login</button></div>
-                    </form>
+                    <div class="row row-cols-lg-auto">
+                        <div class="col-auto text-warning" id="logError"></div>
+                        <div class="col-auto"><input id="email" name="email" type="email" class="form-control form-control-dark" placeholder="Email" aria-label="Search"></div>
+                        <div class="col-auto"><input id="password" name="password" type="password" class="form-control form-control-dark" placeholder="Password" aria-label="Search"></div>
+                        <div class="col-auto"><button class="btn btn-outline-light me-2" onclick="login()">Login</button></div>
+                    </div>
 
                     <div class="text-end">
                         or
@@ -70,31 +70,40 @@
 
     <div class="container">
         <h1 class="fw-light">Register</h1>
-        <form action="${pageContext.request.contextPath}/registerUser" method="post">
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" name="name" id="name" aria-describedby="emailHelp">
+                <input type="text" class="form-control" name="name" id="name" required>
+                <div class="invalid-feedback" id="nameInvalid" hidden>
+                    Name must be longer than 3 characters
+                </div>
             </div>
             <div class="mb-3">
                 <label for="surname" class="form-label">Surname</label>
-                <input type="text" class="form-control" name="surname" id="surname" aria-describedby="emailHelp">
+                <input type="text" class="form-control" name="surname" id="surname" required>
+                <div class="invalid-feedback" id="surnameInvalid" hidden>
+                    Surname must be longer than 3 characters
+                </div>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">
+                <input type="email" class="form-control" name="email" id="regEmail" required>
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                <div class="invalid-feedback" id="emailInvalid" hidden>
+                    Please insert a valid email.
+                </div>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password">
+                <input type="password" class="form-control" id="regPassword" name="password" required>
+                <div class="invalid-feedback" id="passwordInvalid" hidden>
+                    Your password must be 6 characters long and have at least 1 upper case, 1 lower case, 1 number.
+                </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Register</button>
-        </form>
+            <button onclick="registration()" class="btn btn-primary">Register</button>
     </div>
 </div>
 
-</main>
 
 <footer class="text-muted py-5">
     <div class="container">
@@ -102,9 +111,10 @@
             <a href="#">Back to top</a>
         </p>
         <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-        <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="{{< docsref "/getting-started/introduction" >}}">getting started guide</a>.</p>
     </div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<script type='text/javascript' src='js/registration.js'></script>
+<script type='text/javascript' src='js/login.js'></script>
 </body>
 </html>

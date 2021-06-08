@@ -40,13 +40,14 @@ public class UserDao extends DAO{
 				ps.setString(1, account.getUserEmail());
 				ps.setString(2, account.getUserPassword());
 				ResultSet set = ps.executeQuery();
-				while (set.next()) {
-
+				if(set.next()) {
 					currentAccount.setUserID(set.getInt("userID"));
 					currentAccount.setUserEmail(set.getString("userEmail"));
 					currentAccount.setUserName(set.getString("userName"));
 					currentAccount.setUserSurname(set.getString("userSurname"));
 					currentAccount.setUserIsAdmin(set.getBoolean("userIsAdmin"));
+				}else{
+					return null;
 				}
 			} catch (SQLException throwables) {
 				throwables.printStackTrace();
@@ -91,6 +92,20 @@ public class UserDao extends DAO{
 			}
 			return affectedRows > 0;
 		}
+	}
+
+	public boolean emailIsInDB(String email) {
+		startConnection();
+		try(Connection conn = getConnection()) {
+			try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM user WHERE userEmail=?")){
+				ps.setString(1, email);
+				ResultSet set = ps.executeQuery();
+				return set.next();
+			}
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
+		}
+		return false;
 	}
 
 }

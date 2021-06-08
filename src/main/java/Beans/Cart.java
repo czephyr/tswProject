@@ -8,7 +8,8 @@ public class Cart {
 	private int user_id;
 	private ArrayList<Product> cartProducts;
 
-	public Cart(int user_id) {
+	public Cart(int user_id, int cartID) {
+		this.cartID = cartID;
 		this.user_id = user_id;
 		cartProducts = new ArrayList<>();
 	}

@@ -1,5 +1,6 @@
 package Servlet;
 
+import Beans.AccountSession;
 import Beans.Cart;
 import Beans.Product;
 import DataAccess.CartDao;
@@ -14,8 +15,14 @@ import java.util.ArrayList;
 public class addToCartUser extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CartDao cartDao = new CartDao();
 		HttpSession session = request.getSession(false);
+		AccountSession accountSession = (AccountSession) session.getAttribute("accountSession");
+		if(accountSession == null){
+			response.sendError(HttpServletResponse.SC_FORBIDDEN,"You're not logged");
+			return;
+		}
+
+		CartDao cartDao = new CartDao();
 		Cart cart = (Cart) session.getAttribute("cart");
 		ArrayList<Product> cartProducts = cart.getCartProducts();
 

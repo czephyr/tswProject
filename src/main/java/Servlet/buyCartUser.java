@@ -16,10 +16,16 @@ import java.util.ArrayList;
 public class buyCartUser extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		OrderDao orderDao = new OrderDao();
-		CartDao cartDao = new CartDao();
 		HttpSession session = request.getSession(false);
 		AccountSession accountSession = (AccountSession) session.getAttribute("accountSession");
+		if(accountSession == null){
+			response.sendError(HttpServletResponse.SC_FORBIDDEN,"You're not logged");
+			return;
+		}
+
+		OrderDao orderDao = new OrderDao();
+		CartDao cartDao = new CartDao();
+
 		try {
 			int cartId= cartDao.checkCartExistance(accountSession.getUserID());
 			Cart cart = cartDao.returnFullCart(cartId);
