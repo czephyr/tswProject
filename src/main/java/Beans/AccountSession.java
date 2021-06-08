@@ -1,30 +1,21 @@
 package Beans;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-public class User {
+public class AccountSession {
 
 	private int userID;
 	private String userEmail;
 	private String userName;
 	private String userSurname;
-	private String userPassword;
 	private boolean userIsAdmin;
 
-	public User(String userEmail, String userName, String userSurname, boolean userIsAdmin) {
+	public AccountSession(String userEmail, String userName, String userSurname, boolean userIsAdmin) {
 		this.userEmail = userEmail;
 		this.userName = userName;
 		this.userSurname = userSurname;
 		this.userIsAdmin = userIsAdmin;
 	}
 
-	public User(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-	public User() {
+	public AccountSession() {
 	}
 
 	public int getUserID() {
@@ -59,19 +50,6 @@ public class User {
 		this.userSurname = userSurname;
 	}
 
-	public String getUserPassword() {
-		return userPassword;
-	}
-
-	public void setUserPassword(String userPassword) throws NoSuchAlgorithmException {
-		MessageDigest digest = MessageDigest.getInstance("SHA-512");
-		byte[] hashedPwd = digest.digest(userPassword.getBytes(StandardCharsets.UTF_8));
-		StringBuilder builder = new StringBuilder();
-		for(byte bit : hashedPwd){
-			builder.append(String.format("%02x", bit));
-		}
-		this.userPassword = builder.toString();
-	}
 
 	public boolean isUserIsAdmin() {
 		return userIsAdmin;

@@ -10,9 +10,11 @@ public class Cart {
 
 	public Cart(int user_id) {
 		this.user_id = user_id;
+		cartProducts = new ArrayList<>();
 	}
 
 	public Cart() {
+		cartProducts = new ArrayList<>();
 	}
 
 	public int getCartID() {
@@ -35,12 +37,19 @@ public class Cart {
 		return cartProducts;
 	}
 
+	public void addProduct(Product newProduct){
+		cartProducts.add(newProduct);
+	}
+
 	public void setCartProducts(ArrayList<Product> products) {
 		this.cartProducts = products;
 	}
 
 	public Double getCartTotal(){
-		//to be implemented with sum of products list prices
-		return 0.00;
+		double total = 0.00;
+		for (Product product: cartProducts) {
+			total = total + product.getProductPrice()*product.getProductQuantity();
+		}
+		return total;
 	}
 }

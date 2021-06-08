@@ -19,6 +19,11 @@ public class Product {
 		this.productCategory = productCategory;
 	}
 
+	public Product(int productID, int productQuantity){
+		this.productID= productID;
+		this.productQuantity = productQuantity;
+	}
+
 	public Product() {
 	}
 

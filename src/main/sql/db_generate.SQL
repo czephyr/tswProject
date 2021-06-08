@@ -3,7 +3,6 @@ DROP SCHEMA tsw;
 CREATE SCHEMA tsw;
 
 use tsw;
-
 CREATE TABLE `User` (
                         `userID` INT NOT NULL AUTO_INCREMENT,
                         `userEmail` varchar(255) NOT NULL,
@@ -17,6 +16,8 @@ CREATE TABLE `User` (
 CREATE TABLE `Order` (
                          `orderID` INT NOT NULL AUTO_INCREMENT,
                          `user_id` INT NOT NULL,
+                         `orderDate` DATE NOT NULL,
+                         `orderTotal` DECIMAL NOT NULL,
                          PRIMARY KEY (`orderID`)
 );
 
@@ -39,12 +40,14 @@ CREATE TABLE `Product` (
 
 CREATE TABLE `product_order` (
                                  `order_id` INT NOT NULL,
-                                 `product_id` INT NOT NULL
+                                 `product_id` INT NOT NULL,
+                                 `quantity` INT NOT NULL
 );
 
 CREATE TABLE `product_cart` (
                                 `cart_id` INT NOT NULL,
-                                `product_id` INT NOT NULL
+                                `product_id` INT NOT NULL,
+                                `quantity` INT NOT NULL
 );
 
 ALTER TABLE `Order` ADD CONSTRAINT `Order_fk0` FOREIGN KEY (`user_id`) REFERENCES `User`(`userID`);

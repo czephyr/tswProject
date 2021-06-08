@@ -1,18 +1,36 @@
 package Beans;
 
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class Order {
 
 	private int orderID;
 	private int user_id;
 	private ArrayList<Product> orderProducts;
+	private LocalDate orderDate;
+	private Double orderTotal;
 
-	public Order(int user_id) {
+	public Double getOrderTotal() {
+		return orderTotal;
+	}
+
+	public void setOrderTotal(Double total) {
+		this.orderTotal = total;
+	}
+
+	public void addProduct(Product product){
+		this.orderProducts.add(product);
+	}
+
+	public Order(int user_id, ArrayList<Product> orderProducts, LocalDate orderDate) {
 		this.user_id = user_id;
+		this.orderProducts = orderProducts;
+		this.orderDate = orderDate;
 	}
 
 	public Order() {
+		this.orderProducts = new ArrayList<>();
 	}
 
 	public int getOrderID() {
@@ -35,12 +53,15 @@ public class Order {
 		return orderProducts;
 	}
 
-	public void setOrderProducts(ArrayList<Product> products) {
-		this.orderProducts = products;
+	public void setOrderProducts(ArrayList<Product> orderProducts) {
+		this.orderProducts = orderProducts;
 	}
 
-	public Double getOrderTotal(){
-		//to be implemented with sum of products list prices
-		return 0.00;
+	public LocalDate getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(LocalDate orderDate) {
+		this.orderDate = orderDate;
 	}
 }
