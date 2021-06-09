@@ -18,8 +18,8 @@ public class buyCartUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		AccountSession accountSession = (AccountSession) session.getAttribute("accountSession");
-		if(accountSession == null){
-			response.sendError(HttpServletResponse.SC_FORBIDDEN,"You're not logged");
+		if (accountSession == null) {
+			response.sendError(HttpServletResponse.SC_FORBIDDEN, "You're not logged");
 			return;
 		}
 
@@ -27,17 +27,17 @@ public class buyCartUser extends HttpServlet {
 		CartDao cartDao = new CartDao();
 
 		try {
-			int cartId= cartDao.checkCartExistance(accountSession.getUserID());
+			int cartId = cartDao.checkCartExistance(accountSession.getUserID());
 			Cart cart = cartDao.returnFullCart(cartId);
-			orderDao.buyFullCart(cartId, accountSession.getUserID(),cart.getCartProducts(),cart.getCartTotal());
+			orderDao.buyFullCart(cartId, accountSession.getUserID(), cart.getCartProducts(), cart.getCartTotal());
 			cartDao.emptyCurrentCart(accountSession.getUserID());
 
 			cart.setCartProducts(new ArrayList<>());
 
-			session.setAttribute("cart",cart);
-			session.setAttribute("cartItemsN",0);
+			session.setAttribute("cart", cart);
+			session.setAttribute("cartItemsN", 0);
 
-			response.sendRedirect(request.getContextPath()+"/cartUser");
+			response.sendRedirect(request.getContextPath() + "/cartUser");
 		} catch (SQLException throwables) {
 			throwables.printStackTrace();
 		}

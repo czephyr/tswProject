@@ -14,13 +14,13 @@ public class ordersPageUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		AccountSession accountSession = (AccountSession) session.getAttribute("accountSession");
-		if(accountSession == null){
-			response.sendError(HttpServletResponse.SC_FORBIDDEN,"You're not logged");
+		if (accountSession == null) {
+			response.sendError(HttpServletResponse.SC_FORBIDDEN, "You're not logged");
 			return;
 		}
 
 		OrderDao orderDao = new OrderDao();
-		request.setAttribute("orders",orderDao.returnAllOrders(accountSession.getUserID()));
-		request.getRequestDispatcher("orders.jsp").forward(request,response);
+		request.setAttribute("orders", orderDao.returnAllOrders(accountSession.getUserID()));
+		request.getRequestDispatcher("orders.jsp").forward(request, response);
 	}
 }

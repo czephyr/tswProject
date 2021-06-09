@@ -17,8 +17,8 @@ public class addToCartUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		AccountSession accountSession = (AccountSession) session.getAttribute("accountSession");
-		if(accountSession == null){
-			response.sendError(HttpServletResponse.SC_FORBIDDEN,"You're not logged");
+		if (accountSession == null) {
+			response.sendError(HttpServletResponse.SC_FORBIDDEN, "You're not logged");
 			return;
 		}
 
@@ -32,14 +32,14 @@ public class addToCartUser extends HttpServlet {
 		cart.setCartProducts(cartProducts);
 
 		session.setAttribute("cart", cart);
-		session.setAttribute("cartItemsN",((Integer)session.getAttribute("cartItemsN"))+1);
+		session.setAttribute("cartItemsN", ((Integer) session.getAttribute("cartItemsN")) + 1);
 
-		if(cartDao.itemIsInCart(Integer.parseInt(request.getParameter("productid")),cart.getCartID())){
-			cartDao.updateQuantity(Integer.parseInt(request.getParameter("productid")),cart.getCartID());
-		}else{
-			cartDao.addToCartByID(Integer.parseInt(request.getParameter("productid")),cart.getCartID());
+		if (cartDao.itemIsInCart(Integer.parseInt(request.getParameter("productid")), cart.getCartID())) {
+			cartDao.updateQuantity(Integer.parseInt(request.getParameter("productid")), cart.getCartID());
+		} else {
+			cartDao.addToCartByID(Integer.parseInt(request.getParameter("productid")), cart.getCartID());
 		}
 
-		response.sendRedirect(request.getContextPath()+"/productPageServlet" + "?ID="+ request.getParameter("productid"));
+		response.sendRedirect(request.getContextPath() + "/productPageServlet" + "?ID=" + request.getParameter("productid"));
 	}
 }

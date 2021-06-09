@@ -14,19 +14,19 @@ public class catalogueServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ProductDao productDao = new ProductDao();
 
-		if((request.getParameter("search")!= null) && (request.getParameter("orderBy") != null)){
+		if ((request.getParameter("search") != null) && (request.getParameter("orderBy") != null)) {
 			try {
-				request.setAttribute("products", productDao.getAllSearch(request.getParameter("search"),request.getParameter("orderBy")));
+				request.setAttribute("products", productDao.getAllSearch(request.getParameter("search"), request.getParameter("orderBy")));
 			} catch (SQLException throwables) {
 				throwables.printStackTrace();
 			}
-		}else{
+		} else {
 			try {
 				request.setAttribute("products", productDao.getAllProducts());
 			} catch (SQLException throwables) {
 				throwables.printStackTrace();
 			}
 		}
-		request.getRequestDispatcher("catalogue.jsp").forward(request,response);
+		request.getRequestDispatcher("catalogue.jsp").forward(request, response);
 	}
 }

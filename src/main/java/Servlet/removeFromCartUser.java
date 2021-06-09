@@ -20,8 +20,8 @@ public class removeFromCartUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		AccountSession accountSession = (AccountSession) session.getAttribute("accountSession");
-		if(accountSession == null){
-			response.sendError(HttpServletResponse.SC_FORBIDDEN,"You're not logged");
+		if (accountSession == null) {
+			response.sendError(HttpServletResponse.SC_FORBIDDEN, "You're not logged");
 			return;
 		}
 
@@ -31,14 +31,14 @@ public class removeFromCartUser extends HttpServlet {
 		ArrayList<Product> cartProducts = cart.getCartProducts();
 
 		cartProducts.removeIf(product -> product.getProductID() == Integer.parseInt(request.getParameter("productid")));
-		for (Product product: cartProducts) {
+		for (Product product : cartProducts) {
 			cartItemsN = cartItemsN + product.getProductQuantity();
 		}
 		cart.setCartProducts(cartProducts);
 
 		session.setAttribute("cart", cart);
 		session.setAttribute("cartItemsN", cartItemsN);
-		cartDao.removeFromCartByID(accountSession.getUserID(),Integer.parseInt(request.getParameter("productid")));
-		response.sendRedirect(request.getContextPath()+"/cartUser");
+		cartDao.removeFromCartByID(accountSession.getUserID(), Integer.parseInt(request.getParameter("productid")));
+		response.sendRedirect(request.getContextPath() + "/cartUser");
 	}
 }

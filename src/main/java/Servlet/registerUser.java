@@ -29,6 +29,27 @@ public class registerUser extends HttpServlet {
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST,"Email is already in the DB");
 				return;
 			}
+
+			if(((String) request.getParameter("name")).length() <3 ){
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST,"Your name is too short");
+				return;
+			}
+
+			if(((String) request.getParameter("surname")).length() <3 ){
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST,"Your surname is too short");
+				return;
+			}
+
+			if(!((String) request.getParameter("email")).matches("^(([^<>()[\\]\\\\.,;:\\s@\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$") ){
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST,"Your email is not valid");
+				return;
+			}
+
+			if(!((String) request.getParameter("password")).matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,})") ){
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST,"Your password is not valid");
+				return;
+			}
+
 			int userid = userDao.createUser(request.getParameter("email"),request.getParameter("name"),request.getParameter("surname"), request.getParameter("password"));
 			int cartid = cartDao.createCartByID(userid);
 			Cart cart = new Cart(userid,cartid);

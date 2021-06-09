@@ -26,19 +26,19 @@ public class loginUser extends HttpServlet {
 		Cart cart = new Cart();
 		int cartItemsN = 0;
 		try {
-			accountSession = userDao.findUserForLogin(request.getParameter("email"),request.getParameter("password"));
-			if(accountSession == null){
-				response.sendError(HttpServletResponse.SC_NOT_FOUND,"Wrong email or password");
+			accountSession = userDao.findUserForLogin(request.getParameter("email"), request.getParameter("password"));
+			if (accountSession == null) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND, "Wrong email or password");
 				return;
 			}
 
 			int cartid = cartDao.checkCartExistance(accountSession.getUserID());
-			if(cartid > 0){
-				cart = cartDao.returnQuantityIDInCart(accountSession.getUserID(),cartid);
-				for (Product product: cart.getCartProducts()) {
-					cartItemsN = cartItemsN +product.getProductQuantity();
+			if (cartid > 0) {
+				cart = cartDao.returnQuantityIDInCart(accountSession.getUserID(), cartid);
+				for (Product product : cart.getCartProducts()) {
+					cartItemsN = cartItemsN + product.getProductQuantity();
 				}
-			}else{
+			} else {
 				cartDao.createCartByID(accountSession.getUserID());
 				cartid = cartDao.checkCartExistance(accountSession.getUserID());
 			}

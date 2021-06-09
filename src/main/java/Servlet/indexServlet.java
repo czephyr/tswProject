@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@WebServlet(name = "indexServlet", value="/index")
+@WebServlet(name = "indexServlet", value = "/index")
 public class indexServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,6 +24,6 @@ public class indexServlet extends HttpServlet {
 		}
 
 		request.setAttribute("homeProducts", homeProducts);
-		request.getRequestDispatcher("/home.jsp").forward(request,response);
+		request.getRequestDispatcher("/home.jsp").forward(request, response);
 	}
 }

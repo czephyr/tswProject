@@ -13,12 +13,12 @@ public class logoutUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		AccountSession accountSession = (AccountSession) session.getAttribute("accountSession");
-		if(accountSession == null){
-			response.sendError(HttpServletResponse.SC_FORBIDDEN,"You're not logged");
+		if (accountSession == null) {
+			response.sendError(HttpServletResponse.SC_FORBIDDEN, "You're not logged");
 			return;
 		}
 
 		session.invalidate();
-		response.sendRedirect(request.getContextPath()+"/index");
+		response.sendRedirect(request.getContextPath() + "/index");
 	}
 }
