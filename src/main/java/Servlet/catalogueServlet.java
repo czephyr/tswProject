@@ -27,6 +27,6 @@ public class catalogueServlet extends HttpServlet {
 				throwables.printStackTrace();
 			}
 		}
-		request.getRequestDispatcher("catalogue.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/catalogue.jsp").forward(request, response);
 	}
 }

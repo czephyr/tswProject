@@ -1,0 +1,16 @@
+.kustom-class {
+    display: flex;
+    flex-direction: row;
+}
+
+@media only screen and (max-width: 768px) {
+    .kustom-class {
+        display: flex;
+        flex-direction: column;
+    }
+
+     .kustom2{
+         margin-top: 10px;
+         width: 100%;
+     }
+}

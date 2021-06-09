@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/navResponsive.css">
     <title>Hello, world!</title>
 </head>
 
@@ -47,20 +48,20 @@
                 </c:when>
 
                 <c:otherwise>
-                    <div class="row row-cols-lg-auto">
-                        <div class="col-auto text-warning" id="logError"></div>
-                        <div class="col-auto"><input id="email" name="email" type="email"
-                                                     class="form-control form-control-dark" placeholder="Email"
-                                                     aria-label="Search"></div>
-                        <div class="col-auto"><input id="password" name="password" type="password"
-                                                     class="form-control form-control-dark" placeholder="Password"
-                                                     aria-label="Search"></div>
-                        <div class="col-auto">
+                    <div class="row row-cols-lg-auto custom" id="logForm">
+                        <div class="col-auto text-warning custom2" id="logError"></div>
+                        <div class="col-auto custom2"><input id="email" name="email" type="email"
+                                                             class="form-control form-control-dark" placeholder="Email"
+                                                             aria-label="Search"></div>
+                        <div class="col-auto custom2"><input id="password" name="password" type="password"
+                                                             class="form-control form-control-dark" placeholder="Password"
+                                                             aria-label="Search"></div>
+                        <div class="col-auto custom2">
                             <button class="btn btn-outline-light me-2" onclick="login()">Login</button>
                         </div>
                     </div>
 
-                    <div class="text-end">
+                    <div class="text-end" id="signForm">
                         or
                         <a href="registration.jsp" class="btn btn-warning">Sign-up</a>
                     </div>

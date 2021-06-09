@@ -11,7 +11,8 @@
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>Hello, world!</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/navResponsive.css">
+    <title>403</title>
 </head>
 
 <body class="bg-light">
@@ -19,6 +20,12 @@
 <header class="p-3 bg-dark text-white">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                    <use xlink:href="#bootstrap"/>
+                </svg>
+            </a>
+
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="${pageContext.request.contextPath}/index" class="nav-link px-2 text-white">Home</a></li>
                 <li><a href="${pageContext.request.contextPath}/catalogueServlet" class="nav-link px-2 text-white">Catalogue</a>
@@ -26,7 +33,7 @@
                 <c:choose>
                     <c:when test="${accountSession.userIsAdmin == false}">
                         <li><a href="${pageContext.request.contextPath}/ordersPageUser"
-                               class="nav-link px-2 text-secondary">Orders</a></li>
+                               class="nav-link px-2 text-white">Orders</a></li>
                     </c:when>
                 </c:choose>
             </ul>
@@ -49,22 +56,22 @@
                 </c:when>
 
                 <c:otherwise>
-                    <div class="row row-cols-lg-auto">
-                        <div class="col-auto text-warning" id="logError"></div>
-                        <div class="col-auto"><input id="email" name="email" type="email"
-                                                     class="form-control form-control-dark" placeholder="Email"
-                                                     aria-label="Search"></div>
-                        <div class="col-auto"><input id="password" name="password" type="password"
-                                                     class="form-control form-control-dark" placeholder="Password"
-                                                     aria-label="Search"></div>
-                        <div class="col-auto">
+                    <div class="row row-cols-lg-auto custom" id="logForm">
+                        <div class="col-auto text-warning custom2" id="logError"></div>
+                        <div class="col-auto custom2"><input id="email" name="email" type="email"
+                                                             class="form-control form-control-dark" placeholder="Email"
+                                                             aria-label="Search"></div>
+                        <div class="col-auto custom2"><input id="password" name="password" type="password"
+                                                             class="form-control form-control-dark" placeholder="Password"
+                                                             aria-label="Search"></div>
+                        <div class="col-auto custom2">
                             <button class="btn btn-outline-light me-2" onclick="login()">Login</button>
                         </div>
                     </div>
 
-                    <div class="text-end">
+                    <div class="text-end" id="signForm">
                         or
-                        <a href="registration.jsp" class="btn btn-warning">Sign-up</a>
+                        <a href="${pageContext.request.contextPath}/accessRegistration" class="btn btn-warning">Sign-up</a>
                     </div>
                 </c:otherwise>
             </c:choose>
@@ -72,50 +79,20 @@
     </div>
 </header>
 
-<div class="album py-5 bg-light">
-
-    <div class="container position-relative">
-        <h1 class="fw-light">Here are your past orders</h1>
-
-        <c:choose>
-            <c:when test="${orders.size() == 0}">
-                <p class="lead text-muted mt-5 position-absolute top-50 start-50 translate-middle">You have no past
-                    orders.</p>
-            </c:when>
-            <c:otherwise><c:forEach items="${orders}" var="order">
-                <div class="container">
-                    <h3 class="fw-light mt-3">Order in date ${order.orderDate}</h3>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Price</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${order.orderProducts}" var="product">
-                            <tr>
-                                <th scope="row"></th>
-                                <td>${product.productName}</td>
-                                <td>${product.productQuantity}</td>
-                                <td>${product.productPrice}</td>
-                            </tr>
-                        </c:forEach>
-                        <th scope="row"></th>
-                        <td></td>
-                        <td></td>
-                        <td><strong>Total:</strong> ${order.orderTotal}</td>
-                        </tbody>
-                    </table>
-                </div>
-            </c:forEach></c:otherwise>
-        </c:choose>
-    </div>
-</div>
+<main>
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">403 error</h1>
+                <p class="lead text-muted">You're not authorized to access this resource. How did you do it?</p>
+            </div>
+        </div>
+    </section>
+</main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
+<script type='text/javascript' src='${pageContext.request.contextPath}/js/login.js'></script>
 </body>
 </html>
+

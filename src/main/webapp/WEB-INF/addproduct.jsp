@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/navResponsive.css">
     <title>Hello, world!</title>
 </head>
 
@@ -18,7 +19,7 @@
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-white">Home</a></li>
+                <li><a href="${pageContext.request.contextPath}/index" class="nav-link px-2 text-white">Home</a></li>
                 <li><a href="${pageContext.request.contextPath}/catalogueServlet" class="nav-link px-2 text-white">Catalogue</a>
                 </li>
                 <c:choose>
@@ -47,21 +48,22 @@
                 </c:when>
 
                 <c:otherwise>
-                    <form action="${pageContext.request.contextPath}/loginUser" method="post"
-                          class="row row-cols-lg-auto">
-                        <div class="col-auto"><input name="email" type="email" class="form-control form-control-dark"
-                                                     placeholder="Email" aria-label="Search"></div>
-                        <div class="col-auto"><input name="password" type="password"
-                                                     class="form-control form-control-dark" placeholder="Password"
-                                                     aria-label="Search"></div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-outline-light me-2">Login</button>
+                    <div class="row row-cols-lg-auto custom" id="logForm">
+                        <div class="col-auto text-warning custom2" id="logError"></div>
+                        <div class="col-auto custom2"><input id="email" name="email" type="email"
+                                                             class="form-control form-control-dark" placeholder="Email"
+                                                             aria-label="Search"></div>
+                        <div class="col-auto custom2"><input id="password" name="password" type="password"
+                                                             class="form-control form-control-dark" placeholder="Password"
+                                                             aria-label="Search"></div>
+                        <div class="col-auto custom2">
+                            <button class="btn btn-outline-light me-2" onclick="login()">Login</button>
                         </div>
-                    </form>
+                    </div>
 
-                    <div class="text-end">
+                    <div class="text-end" id="signForm">
                         or
-                        <a href="registration.jsp" class="btn btn-warning">Sign-up</a>
+                        <a href="${pageContext.request.contextPath}/accessRegistration" class="btn btn-warning">Sign-up</a>
                     </div>
                 </c:otherwise>
             </c:choose>

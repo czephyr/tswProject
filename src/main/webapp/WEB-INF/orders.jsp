@@ -13,21 +13,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/navResponsive.css">
 
-    <title>Homepage</title>
+    <title>Hello, world!</title>
 </head>
 
-<body>
+<body class="bg-light">
+
 <header class="p-3 bg-dark text-white">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0" id="uff">
-                <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="${pageContext.request.contextPath}/index" class="nav-link px-2 text-white">Home</a></li>
                 <li><a href="${pageContext.request.contextPath}/catalogueServlet" class="nav-link px-2 text-white">Catalogue</a>
                 </li>
                 <c:choose>
                     <c:when test="${accountSession.userIsAdmin == false}">
                         <li><a href="${pageContext.request.contextPath}/ordersPageUser"
-                               class="nav-link px-2 text-white">Orders</a></li>
+                               class="nav-link px-2 text-secondary">Orders</a></li>
                     </c:when>
                 </c:choose>
             </ul>
@@ -53,11 +54,11 @@
                     <div class="row row-cols-lg-auto custom" id="logForm">
                         <div class="col-auto text-warning custom2" id="logError"></div>
                         <div class="col-auto custom2"><input id="email" name="email" type="email"
-                                                     class="form-control form-control-dark" placeholder="Email"
-                                                     aria-label="Search"></div>
+                                                             class="form-control form-control-dark" placeholder="Email"
+                                                             aria-label="Search"></div>
                         <div class="col-auto custom2"><input id="password" name="password" type="password"
-                                                     class="form-control form-control-dark" placeholder="Password"
-                                                     aria-label="Search"></div>
+                                                             class="form-control form-control-dark" placeholder="Password"
+                                                             aria-label="Search"></div>
                         <div class="col-auto custom2">
                             <button class="btn btn-outline-light me-2" onclick="login()">Login</button>
                         </div>
@@ -73,45 +74,50 @@
     </div>
 </header>
 
+<div class="album py-5 bg-light">
 
-<main>
-    <section class="py-5 text-center container">
-        <div class="row py-lg-5">
-            <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Check out our full catalogue</h1>
-                <p class="lead text-muted">We hope you will like the items we have to offer. Thanks for your choice.</p>
-                <p>
-                    <a href="${pageContext.request.contextPath}/catalogueServlet" class="btn btn-secondary my-2">See the full catalogue</a>
-                </p>
-            </div>
-        </div>
-    </section>
+    <div class="container position-relative">
+        <h1 class="fw-light">Here are your past orders</h1>
 
-    <div class="album py-5 bg-light">
-        <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <jsp:useBean id="homeProducts" scope="request" type="java.util.List"/>
-                <c:forEach items="${homeProducts}" var="product">
-                    <div class="col">
-                        <div class="card shadow-sm" id="${product.productID}">
-                            <img src="${product.productImg}" class="card-img-top" alt="...">
-                            <div class="card-body">
-
-                                <h4 class="card-title">${product.productName}</h4>
-                                <h5 class="text-muted">${product.productPrice}$</h5>
-                                <p class="card-text">${product.productText}</p>
-                            </div>
-                        </div>
-                    </div>
-                </c:forEach>
-            </div>
-        </div>
+        <c:choose>
+            <c:when test="${orders.size() == 0}">
+                <p class="lead text-muted mt-5 position-absolute top-50 start-50 translate-middle">You have no past
+                    orders.</p>
+            </c:when>
+            <c:otherwise><c:forEach items="${orders}" var="order">
+                <div class="container">
+                    <h3 class="fw-light mt-3">Order in date ${order.orderDate}</h3>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${order.orderProducts}" var="product">
+                            <tr>
+                                <th scope="row"></th>
+                                <td>${product.productName}</td>
+                                <td>${product.productQuantity}</td>
+                                <td>${product.productPrice}</td>
+                            </tr>
+                        </c:forEach>
+                        <th scope="row"></th>
+                        <td></td>
+                        <td></td>
+                        <td><strong>Total:</strong> ${order.orderTotal}</td>
+                        </tbody>
+                    </table>
+                </div>
+            </c:forEach></c:otherwise>
+        </c:choose>
     </div>
-</main>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
-<script type='text/javascript' src='js/itemclick.js'></script>
-<script type='text/javascript' src='js/login.js'></script>
 </body>
 </html>

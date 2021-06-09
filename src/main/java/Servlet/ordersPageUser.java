@@ -21,6 +21,6 @@ public class ordersPageUser extends HttpServlet {
 
 		OrderDao orderDao = new OrderDao();
 		request.setAttribute("orders", orderDao.returnAllOrders(accountSession.getUserID()));
-		request.getRequestDispatcher("orders.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/orders.jsp").forward(request, response);
 	}
 }

@@ -20,7 +20,7 @@ public class productPageServlet extends HttpServlet {
 		} catch (SQLException throwables) {
 			throwables.printStackTrace();
 		}
-		request.getRequestDispatcher("product.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/product.jsp").forward(request, response);
 	}
 
 }

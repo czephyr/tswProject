@@ -45,7 +45,7 @@ public class ProductDao extends DAO{
 				ps.setDouble(2, productPrice);
 				ps.setString(3, productText);
 				ps.setInt(4, productQuantity);
-				ps.setString(5, "someurl");
+				ps.setString(5, "/images/550ngrey.png");
 				ps.setString(6, productCategory);
 				affected = ps.executeUpdate();
 			}

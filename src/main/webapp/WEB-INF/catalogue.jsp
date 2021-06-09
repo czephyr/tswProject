@@ -11,6 +11,11 @@
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/catalogue.css">
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/navResponsive.css">
+
     <title>Hello, world!</title>
 </head>
 
@@ -48,22 +53,22 @@
                 </c:when>
 
                 <c:otherwise>
-                    <div class="row row-cols-lg-auto">
-                        <div class="col-auto text-warning" id="logError"></div>
-                        <div class="col-auto"><input id="email" name="email" type="email"
-                                                     class="form-control form-control-dark" placeholder="Email"
-                                                     aria-label="Search"></div>
-                        <div class="col-auto"><input id="password" name="password" type="password"
-                                                     class="form-control form-control-dark" placeholder="Password"
-                                                     aria-label="Search"></div>
-                        <div class="col-auto">
+                    <div class="row row-cols-lg-auto custom" id="logForm">
+                        <div class="col-auto text-warning custom2" id="logError"></div>
+                        <div class="col-auto custom2"><input id="email" name="email" type="email"
+                                                             class="form-control form-control-dark" placeholder="Email"
+                                                             aria-label="Search"></div>
+                        <div class="col-auto custom2"><input id="password" name="password" type="password"
+                                                             class="form-control form-control-dark" placeholder="Password"
+                                                             aria-label="Search"></div>
+                        <div class="col-auto custom2">
                             <button class="btn btn-outline-light me-2" onclick="login()">Login</button>
                         </div>
                     </div>
 
-                    <div class="text-end">
+                    <div class="text-end" id="signForm">
                         or
-                        <a href="registration.jsp" class="btn btn-warning">Sign-up</a>
+                        <a href="${pageContext.request.contextPath}/accessRegistration" class="btn btn-warning">Sign-up</a>
                     </div>
                 </c:otherwise>
             </c:choose>
@@ -71,26 +76,23 @@
     </div>
 </header>
 
-
 <div class="album py-5 bg-light">
-
     <div class="container">
         <h1 class="fw-light">Catalogue</h1>
-
         <form class="mt-3 mb-3" action="${pageContext.request.contextPath}/catalogueServlet" method="get">
-            <div class="row justify-content-start">
-                <div class="col-8">
+            <div class="kustom-class justify-content-start">
+                <div class="col-8 kustom2">
                     <input type="text" class="form-control" name="search"
                            placeholder="Type here what you're searching for">
                 </div>
-                <div class="col-3">
+                <div class="col-3 kustom2">
                     <select class="form-select" aria-label="Default select example" name="orderBy">
                         <option selected value="alphabetical">Order by name</option>
                         <option value="lowPrice">Order by lowest price</option>
                         <option value="highPrice">Order by highest price</option>
                     </select>
                 </div>
-                <div class="col-1">
+                <div class="col-1 kustom2">
                     <button type="submit" class="btn btn-primary">Search</button>
                 </div>
             </div>
@@ -100,7 +102,7 @@
             <c:forEach items="${products}" var="product">
                 <div class="col">
                     <div class="card shadow-sm" id="${product.productID}">
-                        <img src="https://via.placeholder.com/100.png" class="card-img-top" alt="...">
+                        <img src="${product.productImg}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h4 class="card-title">${product.productName}</h4>
                             <h5 class="text-muted">${product.productPrice}$</h5>
@@ -115,7 +117,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
-<script type='text/javascript' src='js/itemclick.js'></script>
-<script type='text/javascript' src='js/login.js'></script>
+<script type='text/javascript' src='${pageContext.request.contextPath}/js/itemclick.js'></script>
+<script type='text/javascript' src='${pageContext.request.contextPath}/js/login.js'></script>
 </body>
 </html>

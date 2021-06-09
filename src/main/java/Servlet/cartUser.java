@@ -21,7 +21,7 @@ public class cartUser extends HttpServlet {
 			cart = cartDao.returnFullCart(cartDao.checkCartExistance(account.getUserID()));
 			request.setAttribute("cart", cart);
 			request.setAttribute("total", cart.getCartTotal());
-			request.getRequestDispatcher("cart.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/cart.jsp").forward(request, response);
 		} catch (SQLException throwables) {
 			throwables.printStackTrace();
 		}
